@@ -15,12 +15,12 @@ Colorref <- c("Red","Blue","Green","Yellow","Black","Orange","Brown","Pink")
 Colorsnew <- as.data.frame(matrix(ncol = length(Colorref), nrow = nrow(Colors)))
 names(Colorsnew) <- Colorref
 
-#Creating a for-loop to use grepl and ifelse function to scan our original strings and populate our new data set with a raw tally of our observations. Each string that is found produces a "1", each non-match produces a "0"====
+# Creating a for-loop to use grepl and ifelse function to scan our original strings and populate our new data set with a raw tally of our observations. Each string that is found produces a "1", each non-match produces a "0"====
 for (i in seq_along(Colorref)){
   Colorsnew[i] = ifelse(grepl(Colorref[i],Colors$`What colors do you like?`),1,0)
 }
 
-#Transposing the data into a "long format", grouping the data set by "color", then collapsing the sum of these tallies by color with the summarise function====
+# Transposing the data into a "long format", grouping the data set by "color", then collapsing the sum of these tallies by color with the summarise function====
 Colorsnew <- Colorsnew %>% 
   pivot_longer(everything(),names_to = "Color", values_to = "Tally") %>%
   group_by(Color) %>%
