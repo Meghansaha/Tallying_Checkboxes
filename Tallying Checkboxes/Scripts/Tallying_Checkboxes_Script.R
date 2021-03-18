@@ -32,7 +32,11 @@ Colorsnew <- Colorsnew %>%
   group_by(Color) %>%
   summarise(Tally = sum(Tally))
 
-
+#Adding a Tidyr solution with seperate rows====
+# The function "Separate_rows" can be used to tally checkbox results===
+TidyrColors <- Colors %>%
+  separate_rows(`What colors do you like?`, sep = ", ") %>%
+  count(`What colors do you like?`, sort = TRUE, name = "Tally")
 
 
 
