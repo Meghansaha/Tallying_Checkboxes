@@ -9,6 +9,14 @@ library(stringr)
 # Loading the data into the session====
 Colors <- read_csv("Data/Colors.csv", col_types = cols(`What colors do you like?` = col_character()))
 
+#Adding a Tidyr solution with seperate rows====
+# The function "Separate_rows" can be used to tally checkbox results===
+TidyrColors <- Colors %>%
+  separate_rows(`What colors do you like?`, sep = ", ") %>%
+  count(`What colors do you like?`, sort = TRUE, name = "Tally")
+
+#=====More Involved Ways for String/Regex/Loop Practice=====#
+
 # Creating a reference vector that contains all possible color choices/responses====
 Colorref <- c("Red","Blue","Green","Yellow","Black","Orange","Brown","Pink")
 
@@ -31,12 +39,3 @@ Colorsnew <- Colorsnew %>%
   pivot_longer(everything(),names_to = "Color", values_to = "Tally") %>%
   group_by(Color) %>%
   summarise(Tally = sum(Tally))
-
-#Adding a Tidyr solution with seperate rows====
-# The function "Separate_rows" can be used to tally checkbox results===
-TidyrColors <- Colors %>%
-  separate_rows(`What colors do you like?`, sep = ", ") %>%
-  count(`What colors do you like?`, sort = TRUE, name = "Tally")
-
-
-
